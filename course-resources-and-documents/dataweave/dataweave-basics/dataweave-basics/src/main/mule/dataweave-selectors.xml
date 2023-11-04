@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="dataweave-json-selectors-flow" doc:id="99b66d93-f96e-435d-9df8-192818fb82e1" >
+		<ee:transform doc:name="Transform Message" doc:id="8fca8363-576e-41d3-8294-74577b486278" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"singleValueSelector": payload[0].source,
+	"multiValueSelector": payload.*source,
+	"indexSelector": payload[0],
+	"rangeSelector": payload[0 to 2] 
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="dataweave-xml-selectors-flow" doc:id="544493a1-6b46-420b-b685-08ff98a81a76" >
+		<ee:transform doc:name="Transform Message" doc:id="4fd24dd1-c05e-4877-a808-28fbf0b5d4fc" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"singleValueSelector": payload.covidCases.*covidCase[0].source,
+	"xmlNamespaceSelector": payload.covidCases.*covidCase[0].source.@id,
+	"multiValueSelector": payload.covidCases.*covidCase.source,
+	"indexSelector": payload.covidCases.*covidCase[1],
+	"rangeSelector": payload.covidCases.*covidCase[0 to 2]
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>

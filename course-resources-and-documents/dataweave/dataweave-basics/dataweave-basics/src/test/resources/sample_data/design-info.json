@@ -1,0 +1,22 @@
+{
+  "sampleData": {
+    "7131963e-07de-477f-93a4-0bd3b00cd0f2": {
+      "payload": "sample_data/json_1.json"
+    },
+    "4fd24dd1-c05e-4877-a808-28fbf0b5d4fc": {
+      "payload": "sample_data/covidcase.xml"
+    },
+    "8fca8363-576e-41d3-8294-74577b486278": {
+      "payload": "sample_data/json.json"
+    },
+    "da68ac70-7bf2-4779-bdb8-c55911e8e59b": {
+      "payload": "sample_data/name.xml"
+    },
+    "ec8e1fbd-f5f1-479f-b80e-6273be9d92be": {
+      "payload": "sample_data/name_1.xml"
+    },
+    "fc94fdc1-653a-4cee-bf1e-c561023c28ec": {
+      "payload": "sample_data/covid_case.xml"
+    }
+  }
+}

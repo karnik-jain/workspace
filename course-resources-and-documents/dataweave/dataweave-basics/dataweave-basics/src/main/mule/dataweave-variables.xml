@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="dataweave-pre-defined-variables" doc:id="909afbaa-5c3c-496e-9f49-045f4c94b20b" >
+		<ee:transform doc:name="Transform Message" doc:id="ec27c341-6555-42a8-ad28-56237948e303" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"app": {
+		"namespace": app.encoding,
+		"applicationName": app.name
+	}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="dataweave-user-defined-variables" doc:id="4bf8fa32-6457-4183-9d05-9155fb5d2507" >
+		<ee:transform doc:name="Transform Message" doc:id="fdf777d6-1f3e-4443-85d6-e57f690bd727" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+var firstName = "Chinna"
+var secondName = "Reddy"
+---
+firstName ++ secondName]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>

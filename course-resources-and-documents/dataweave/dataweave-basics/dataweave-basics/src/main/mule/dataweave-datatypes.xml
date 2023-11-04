@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<flow name="dataweave-data-types-flow" doc:id="2a1ccf43-61cc-4a65-85b4-af6e277190f6" >
+		<ee:transform doc:name="Transform Message" doc:id="94667222-8f07-4232-b24d-61aab4053518" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+  myString: "hello world",
+  myNumber: 123,
+  myFloatingPointNumber: 123.456,
+  myVeryBigNumber: 12341234134123412341234123,
+  myDate: |2018-12-07|,
+  myTime: |11:55:56|,
+  myDateTime: |2018-10-01T23:57:59-03:00|,
+  myBoolean: true,
+  myArray: [ 1, 2, 3, 5, 8],
+  myMixedArray: [ 1, 2, "blah", { hello: "there" } ],
+  myObjectKeyValuePair: { innerKey: "innerValue" }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	</mule>

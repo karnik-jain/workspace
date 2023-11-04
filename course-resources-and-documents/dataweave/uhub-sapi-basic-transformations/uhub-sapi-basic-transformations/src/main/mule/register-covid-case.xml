@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd"> 
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="80f0691e-1875-499d-a7c4-b9e66ce2065d" basePath="covid" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="register-covid-caseFlow" doc:id="001fd07d-66fc-4a9b-8223-1e890b7da7f4" >
+		<http:listener doc:name="Listener" doc:id="2a1ec8c7-b715-4ad9-8278-1ecf1cc7582f" config-ref="HTTP_Listener_config" path="v1/cases" allowedMethods="POST">
+			<http:response statusCode="#[vars.statusCode]" reasonPhrase='#[vars.httpReason]' >
+			</http:response>
+		</http:listener>
+		<logger level="INFO" doc:name="Logger" doc:id="fd258499-6eab-4347-8bd5-f928016c9fd8" message="#[payload]"/>
+		<ee:transform doc:name="Transform Message" doc:id="0bdba106-1dad-465c-8a67-276ae67f7137" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
+---
+{
+	COVID_CASE: {
+		FIRST_NAME: payload.firstName,
+		LAST_NAME: payload.lastName,
+		PHONE: payload.phone,
+		EMAIL: payload.email,
+		DATE_OF_BIRTH: payload.dateOfBirth as Date,
+		COUNTRY: payload.address.country
+	}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="e61159ee-a683-4029-b684-e847380c32df" message="#[payload]"/>
+	</flow>
+</mule>
