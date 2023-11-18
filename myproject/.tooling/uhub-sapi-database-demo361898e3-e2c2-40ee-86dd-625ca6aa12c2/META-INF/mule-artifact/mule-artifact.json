@@ -1,0 +1,31 @@
+{
+  "configs": [
+    "get-covid-reports.xml",
+    "update-covid-case.xml",
+    "get-covid-case-by-national-id.xml",
+    "register-covid-case.xml"
+  ],
+  "secureProperties": [],
+  "redeploymentEnabled": true,
+  "name": "com.mycompany:uhub-sapi-database-section:1.0.0-SNAPSHOT",
+  "minMuleVersion": "4.4.0",
+  "requiredProduct": "MULE_EE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "exportedPackages": [],
+      "exportedResources": [
+        "application-types.xml",
+        "get-covid-case-by-national-id.xml",
+        "get-covid-reports.xml",
+        "log4j2.xml",
+        "register-covid-case.xml",
+        "update-covid-case.xml"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  }
+}
